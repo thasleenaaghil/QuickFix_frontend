@@ -15,6 +15,8 @@ const[limitBookings,setLimitBookings]=useState([])
 const {bookingStatus} = useContext(BookingStatusContext)
 //for delete update status
 const{deleteStatus}=useContext(DeleteStatusContext)
+//for getting user
+const[username,setUserName]=useState("")
 //for delete bookings and pass it on bookcard
 const deletes = ()=>{
   getLimitBooking
@@ -33,9 +35,18 @@ const deletes = ()=>{
     
       
   }
+//for getting username
+useEffect(()=>{
+  const user = JSON.parse(sessionStorage.getItem("existingUser"))
+  if(user){
+    setUserName(user.username)
+  }
+},[])
+console.log(username);
 
   useEffect(()=>{
     getLimitBooking()
+    
   },[bookingStatus,deleteStatus])
   
   
@@ -43,7 +54,7 @@ const deletes = ()=>{
     <>
        <Header remove={remove}/>
       <Container fluid>
-        <h1 className='text-center mt-3'>Hello User,Book Your Service</h1>
+        <h1 className='text-center mt-3'>Hello {username} ,Book Your Service</h1>
        <div className='d-flex justify-content-evenly ps-2 '>
       <Jobcard/>
        </div>
